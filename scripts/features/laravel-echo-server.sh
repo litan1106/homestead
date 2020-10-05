@@ -27,7 +27,7 @@ Restart=always
 RestartSec=10
 StandardOutput=syslog
 StandardError=syslog
-Environment=NODE_ENV=production LARAVEL_ECHO_SERVER_AUTH_HOST=https://client-dashboard.test LARAVEL_ECHO_SERVER_PORT=${2}
+Environment=NODE_ENV=production LARAVEL_ECHO_SERVER_PORT=${2} LARAVEL_ECHO_SERVER_AUTH_HOST=${3}
 
 [Install]
 WantedBy=multi-user.target
