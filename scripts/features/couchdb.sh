@@ -20,7 +20,7 @@ touch /home/$WSL_USER_NAME/.homestead-features/couchdb
 chown -Rf $WSL_USER_NAME:$WSL_USER_GROUP /home/$WSL_USER_NAME/.homestead-features
 
 curl -fsSL https://couchdb.apache.org/repo/keys.asc | sudo gpg --dearmor -o /etc/apt/keyrings/couchdb.gpg
-echo "deb [signed-by=/etc/apt/keyrings/couchdb.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ jammy main" | sudo tee /etc/apt/sources.list.d/couchdb.list
+echo "deb [signed-by=/etc/apt/keyrings/couchdb.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/couchdb.list
 
 sudo apt-get update
 echo "couchdb couchdb/mode select standalone
