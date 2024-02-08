@@ -82,10 +82,10 @@ update-alternatives --set php /usr/bin/php$PHP_VERSION
 update-alternatives --set php-config /usr/bin/php-config$PHP_VERSION
 update-alternatives --set phpize /usr/bin/phpize$PHP_VERSION
 
-# Install Composer
-curl -sS https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
-chown -R $WSL_USER_NAME:$WSL_USER_NAME /home/$WSL_USER_NAME/.config
+  # Install Composer
+  curl -sS https://getcomposer.org/installer | php
+  mv composer.phar /usr/local/bin/composer
+  chown -R $WSL_USER_NAME:$WSL_USER_NAME /home/$WSL_USER_NAME/.config
 
 # Install Global Packages
 sudo su $WSL_USER_NAME <<'EOF'
