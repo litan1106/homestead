@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+if [ -f ~/.homestead-features/wsl_user_name ]; then
+    WSL_USER_NAME="$(cat ~/.homestead-features/wsl_user_name)"
+    WSL_USER_GROUP="$(cat ~/.homestead-features/wsl_user_group)"
+else
+    WSL_USER_NAME=vagrant
+    WSL_USER_GROUP=vagrant
+fi
+
+export DEBIAN_FRONTEND=noninteractive
+
 cat > /root/.my.cnf << EOF
 [client]
 user = root
@@ -7,14 +17,14 @@ password = secret
 host = 127.0.0.1
 EOF
 
-cat > /home/vagrant/.my.cnf << EOF
+cat > /home/$WSL_USER_NAME/.my.cnf << EOF
 [client]
 user = homestead
 password = secret
 host = 127.0.0.1
 EOF
 
-chown vagrant /home/vagrant/.my.cnf
+chown $WSL_USER_NAME /home/$WSL_USER_NAME/.my.cnf
 
 DB=$1
 

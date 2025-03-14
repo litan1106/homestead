@@ -28,8 +28,8 @@ SERVICE_CONF="
 Description=Pusher Soketi server
 Requires=redis-server.service
 [Service]
-User=vagrant
-Group=vagrant
+User=$WSL_USER_NAME
+Group=$WSL_USER_GROUP
 ExecStart=/usr/bin/soketi start --config=${1}
 Restart=always
 RestartSec=10

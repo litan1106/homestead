@@ -7,6 +7,7 @@ else
     WSL_USER_NAME=vagrant
     WSL_USER_GROUP=vagrant
 fi
+echo $WSL_USER_NAME:$WSL_USER_GROUP
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -19,8 +20,8 @@ fi
 touch /home/$WSL_USER_NAME/.homestead-features/ulimit
 chown -Rf $WSL_USER_NAME:$WSL_USER_GROUP /home/$WSL_USER_NAME/.homestead-features
 
-touch /home/vagrant/.homestead-features/ulimit65536
-chown -Rf vagrant:vagrant /home/vagrant/.homestead-features
+touch /home/$WSL_USER_NAME/.homestead-features/ulimit65536
+chown -Rf $WSL_USER_NAME:$WSL_USER_GROUP /home/$WSL_USER_NAME/.homestead-features
 
 echo "soft nofile 65536" > "/etc/security/limits.conf"
 echo "hard nofile 65536" > "/etc/security/limits.conf"

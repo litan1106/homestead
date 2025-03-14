@@ -38,7 +38,7 @@ Description=DragonFly
 After=network.target
 
 [Service]
-User=vagrant
+User=$WSL_USER_NAME
 ExecStart=/usr/bin/env /usr/local/bin/dragonfly
 
 [Install]

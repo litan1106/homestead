@@ -1,10 +1,20 @@
 #!/usr/bin/env bash
 
-mkdir /home/vagrant/ecosystem 2>/dev/null
+if [ -f ~/.homestead-features/wsl_user_name ]; then
+    WSL_USER_NAME="$(cat ~/.homestead-features/wsl_user_name)"
+    WSL_USER_GROUP="$(cat ~/.homestead-features/wsl_user_group)"
+else
+    WSL_USER_NAME=vagrant
+    WSL_USER_GROUP=vagrant
+fi
 
-PATH_ECOSYSTEM="/home/vagrant/ecosystem"
+export DEBIAN_FRONTEND=noninteractive
 
-rm -rf /home/vagrant/ecosystem/*
+mkdir /home/$WSL_USER_NAME/ecosystem 2>/dev/null
+
+PATH_ECOSYSTEM="/home/$WSL_USER_NAME/ecosystem"
+
+rm -rf /home/$WSL_USER_NAME/ecosystem/*
 
 PATH_JSON="${PATH_ECOSYSTEM}/${1}.json"
 

@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+if [ -f ~/.homestead-features/wsl_user_name ]; then
+    WSL_USER_NAME="$(cat ~/.homestead-features/wsl_user_name)"
+    WSL_USER_GROUP="$(cat ~/.homestead-features/wsl_user_group)"
+else
+    WSL_USER_NAME=vagrant
+    WSL_USER_GROUP=vagrant
+fi
+echo $WSL_USER_NAME:$WSL_USER_GROUP
+
 declare -A params=$6       # Create an associative array
 declare -A headers=${9}    # Create an associative array
 declare -A rewrites=${10}  # Create an associative array
@@ -143,16 +152,16 @@ if [ -d "$2/wp" ]
 then
     echo "WordPress is already installed."
 else
-    sudo -i -u vagrant -- mkdir "$2/wp"
-    sudo -i -u vagrant -- wp core download --path="$2/wp" --version=latest
-    sudo -i -u vagrant -- cp -R $2/wp/wp-content $2/wp-content
-    sudo -i -u vagrant -- cp $2/wp/index.php $2/index.php
-    sudo -i -u vagrant -- sed -i "s|/wp-blog-header|/wp/wp-blog-header|g" $2/index.php
-    sudo -i -u vagrant -- echo "path: $2/wp/" > $2/wp-cli.yml
-    sudo -i -u vagrant -- wp config create --path=$2/wp/ --dbname=${1/./_} --dbuser=homestead --dbpass=secret --dbcollate=utf8_general_ci
-    sudo -i -u vagrant -- mv $2/wp/wp-config.php $2/wp-config.php
-    sudo -i -u vagrant -- sed -i 's|'"$wpConfigSearchStr"'|'"$wpConfigReplaceStr"'|g' $2/wp-config.php
-    sudo -i -u vagrant -- sed -i "s|define( 'ABSPATH', dirname( __FILE__ ) . '/' );|define( 'ABSPATH', __DIR__ . '/wp/' );|g" $2/wp-config.php
+    sudo -i -u $WSL_UER_NAME -- mkdir "$2/wp"
+    sudo -i -u $WSL_UER_NAME -- wp core download --path="$2/wp" --version=latest
+    sudo -i -u $WSL_UER_NAME -- cp -R $2/wp/wp-content $2/wp-content
+    sudo -i -u $WSL_UER_NAME -- cp $2/wp/index.php $2/index.php
+    sudo -i -u $WSL_UER_NAME -- sed -i "s|/wp-blog-header|/wp/wp-blog-header|g" $2/index.php
+    sudo -i -u $WSL_UER_NAME -- echo "path: $2/wp/" > $2/wp-cli.yml
+    sudo -i -u $WSL_UER_NAME -- wp config create --path=$2/wp/ --dbname=${1/./_} --dbuser=homestead --dbpass=secret --dbcollate=utf8_general_ci
+    sudo -i -u $WSL_UER_NAME -- mv $2/wp/wp-config.php $2/wp-config.php
+    sudo -i -u $WSL_UER_NAME -- sed -i 's|'"$wpConfigSearchStr"'|'"$wpConfigReplaceStr"'|g' $2/wp-config.php
+    sudo -i -u $WSL_UER_NAME -- sed -i "s|define( 'ABSPATH', dirname( __FILE__ ) . '/' );|define( 'ABSPATH', __DIR__ . '/wp/' );|g" $2/wp-config.php
 
     echo "WordPress has been downloaded and config file has been generated, install it manually."
 fi

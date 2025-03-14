@@ -20,25 +20,25 @@ touch /home/$WSL_USER_NAME/.homestead-features/justzsh
 chown -Rf $WSL_USER_NAME:$WSL_USER_GROUP /home/$WSL_USER_NAME/.homestead-features
 
 # Install zsh
-sudo cp /etc/zsh/newuser.zshrc.recommended /home/vagrant/.zshrc
+sudo cp /etc/zsh/newuser.zshrc.recommended /home/$WSL_USER_NAME/.zshrc
 
 # Setup zsh plugins
-export ZSHPLUGINS_HOME=/home/vagrant/.zshplugins
+export ZSHPLUGINS_HOME=/home/$WSL_USER_NAME/.zshplugins
 git clone https://github.com/dracula/zsh.git $ZSHPLUGINS_HOME/dracula
 git clone https://github.com/zsh-users/zsh-autosuggestions $ZSHPLUGINS_HOME/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSHPLUGINS_HOME/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-history-substring-search $ZSHPLUGINS_HOME/zsh-history-substring-search
 
 # myzshrc
-sudo ln -s /mnt/c/wsl/.myzshrc /home/vagrant/.myzshrc
-printf "\nemulate sh -c 'source ~/.myzshrc'\n" | tee -a /home/vagrant/.zprofile
-printf "\nemulate sh -c 'source ~/.profile'\n" | tee -a /home/vagrant/.zprofile
+sudo ln -s /mnt/c/wsl/.myzshrc /home/$WSL_USER_NAME/.myzshrc
+printf "\nemulate sh -c 'source ~/.myzshrc'\n" | tee -a /home/$WSL_USER_NAME/.zprofile
+printf "\nemulate sh -c 'source ~/.profile'\n" | tee -a /home/$WSL_USER_NAME/.zprofile
 
-chown -R vagrant:vagrant /home/vagrant/.zsh
-chown -R vagrant:vagrant /home/vagrant/.zplug
-chown vagrant:vagrant /home/vagrant/.zshrc
-chown vagrant:vagrant /home/vagrant/.zprofile
-chsh -s /bin/zsh vagrant
+chown -R $WSL_USER_NAME:$WSL_USER_GROUP /home/$WSL_USER_NAME/.zsh
+chown -R $WSL_USER_NAME:$WSL_USER_GROUP /home/$WSL_USER_NAME/.zplug
+chown $WSL_USER_NAME:$WSL_USER_GROUP /home/$WSL_USER_NAME/.zshrc
+chown $WSL_USER_NAME:$WSL_USER_GROUP /home/$WSL_USER_NAME/.zprofile
+chsh -s /bin/zsh $WSL_USER_NAME
 
 ZSHPLUGINS_CONFIG="
 source $ZSHPLUGINS_HOME/dracula/dracula.zsh-theme
@@ -48,4 +48,4 @@ source $ZSHPLUGINS_HOME/zsh-history-substring-search/zsh-history-substring-searc
 ZSH_THEME="dracula"
 "
 
-echo "$ZSHPLUGINS_CONFIG" | sudo tee -a /home/vagrant/.zshrc
+echo "$ZSHPLUGINS_CONFIG" | sudo tee -a /home/$WSL_USER_NAME/.zshrc

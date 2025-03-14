@@ -24,10 +24,10 @@ sudo rm -rf /etc/supervisor/conf.d/"$1".conf
 sudo cat > /etc/supervisor/conf.d/"$1".conf <<EOL
 [program:$1]
 process_name=%(program_name)s
-command=php $2/artisan octane:start --watch --max-requests=250 --server=roadrunner --port=18000 --rpc-port=18001 --workers=4 --rr-config=.rr.debug.yaml
+command=php $2/artisan octane:start --watch --max-requests=250 --server=roadrunner --port=18000 --rpc-port=18001 --workers=4 --rr-config=$2/.rr.debug.yaml
 autostart=true
 autorestart=true
-user=vagrant
+user=$WSL_USER_NAME
 redirect_stderr=true
 stdout_logfile=/var/log/$1.log
 stdout_logfile_maxbytes=1MB

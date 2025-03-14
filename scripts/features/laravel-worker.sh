@@ -27,7 +27,7 @@ process_name=%(program_name)s_%(process_num)02d
 command=php $2/artisan queue:work $3 --queue=high,default,low --sleep=3 --tries=3 --timeout=660
 autostart=true
 autorestart=true
-user=vagrant
+user=$WSL_USER_NAME
 numprocs=$4
 redirect_stderr=true
 stdout_logfile=/var/log/$1.log

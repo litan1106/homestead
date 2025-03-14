@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+if [ -f ~/.homestead-features/wsl_user_name ]; then
+    WSL_USER_NAME="$(cat ~/.homestead-features/wsl_user_name)"
+    WSL_USER_GROUP="$(cat ~/.homestead-features/wsl_user_group)"
+else
+    WSL_USER_NAME=vagrant
+    WSL_USER_GROUP=vagrant
+fi
+
+export DEBIAN_FRONTEND=noninteractive
+
 set -f
 PATH_SSL="/etc/ssl/certs"
 
@@ -74,7 +84,7 @@ then
     cnf="
         ${BASE_CNF}
         [ req_distinguished_name ]
-        O  = Vagrant
+        O  = Homestead
         C  = UN
         CN = Homestead $(hostname) Root CA
     "
@@ -102,7 +112,7 @@ then
     cnf="
         ${BASE_CNF}
         [ req_distinguished_name ]
-        O  = Vagrant
+        O  = Homestead
         C  = UN
         CN = $1
 

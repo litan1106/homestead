@@ -7,6 +7,7 @@ else
     WSL_USER_NAME=vagrant
     WSL_USER_GROUP=vagrant
 fi
+echo $WSL_USER_NAME:$WSL_USER_GROUP
 
 export DEBIAN_FRONTEND=noninteractive
 
